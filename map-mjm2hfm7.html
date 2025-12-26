@@ -1,0 +1,891 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ASCII Map Export</title>
+        <style>
+            :root {
+                --pixel-size: 1.6vw;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: #ffffff;
+                font-family:
+                    "MxPlus IBM BIOS", "Fira Mono", "Consolas", "Menlo",
+                    "Monaco", "Liberation Mono", monospace;
+                font-size: var(--pixel-size);
+                color: #000000;
+                overflow: hidden;
+            }
+
+            #world-container {
+                margin: 0;
+                padding: 0;
+                display: inline-block;
+            }
+
+            #world-container > div {
+                height: var(--pixel-size);
+                white-space: nowrap;
+                display: inline-block;
+            }
+            div span {
+                height: inherit;
+                width: var(--pixel-size);
+                display: inline-block;
+            }
+
+            @keyframes text-wave {
+                0%,
+                100% {
+                    top: 0.2em;
+                }
+                50% {
+                    top: -0.2em;
+                }
+            }
+
+            .floaty-text {
+                width: auto;
+            }
+
+            .floaty-text > span {
+                position: relative;
+                animation-name: text-wave;
+                animation-duration: 2s;
+                animation-iteration-count: infinite;
+                animation-timing-function: ease-in-out;
+                animation-delay: calc(-0.2s * var(--i));
+            }
+        </style>
+    </head>
+    <body>
+        <div id="world-container">
+            <div>
+                <span>.</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>.</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>I</span><span>&nbsp;</span><span>.</span
+                ><span>&nbsp;</span><span>I</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>_</span><span>_</span><span>_</span><span>_</span
+                ><span>_</span><span>_</span><span>_</span><span>_</span
+                ><span>_</span><span>_</span><span>I</span><span>I</span
+                ><span>I</span><span>_</span><span>_</span><span>_</span
+                ><span>_</span><span>_</span><span>_</span><span>_</span
+                ><span>_</span><span>_</span><span>_</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>/</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>.</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>.</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>.</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>.</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>\</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>(</span><span>~</span><span>~</span
+                ><span>&nbsp;</span><span>.</span><span>&nbsp;</span
+                ><span>~</span><span>~</span><span>&nbsp;</span><span>.</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>~</span
+                ><span>~</span><span>~</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>.</span><span>&nbsp;</span
+                ><span>~</span><span>~</span><span>&nbsp;</span><span>.</span
+                ><span>&nbsp;</span><span>~</span><span>~</span><span>)</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>_</span><span>_</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>\</span
+                ><span>S</span><span>S</span><span>S</span><span>S</span
+                ><span>S</span><span>S</span><span>S</span><span>S</span
+                ><span>S</span><span>S</span><span>S</span><span>S</span
+                ><span>S</span><span>S</span><span>S</span><span>S</span
+                ><span>S</span><span>S</span><span>S</span><span>S</span
+                ><span>S</span><span>S</span><span>S</span><span>/</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>_</span><span>_</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>|</span
+                ><span>8</span><span>8</span><span>|</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>\</span><span>=</span><span>=</span><span>=</span
+                ><span>=</span><span>=</span><span>=</span><span>=</span
+                ><span>=</span><span>=</span><span>=</span><span>=</span
+                ><span>=</span><span>=</span><span>=</span><span>=</span
+                ><span>=</span><span>=</span><span>=</span><span>=</span
+                ><span>/</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>|</span
+                ><span>8</span><span>8</span><span>|</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>|</span
+                ><span>8</span><span>8</span><span>|</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>\</span><span>S</span><span>S</span><span>S</span
+                ><span>S</span><span>S</span><span>S</span><span>S</span
+                ><span>S</span><span>S</span><span>S</span><span>S</span
+                ><span>S</span><span>S</span><span>/</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>|</span><span>8</span><span>8</span><span>|</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>H</span><span>H</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>_</span><span>_</span><span>_</span><span>_</span
+                ><span>\</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>/</span
+                ><span>_</span><span>_</span><span>_</span><span>_</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>H</span><span>H</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>H</span><span>H</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>(</span
+                ><span>=</span><span>+</span><span>=</span><span>+</span
+                ><span>=</span><span>+</span><span>=</span><span>+</span
+                ><span>=</span><span>+</span><span>=</span><span>+</span
+                ><span>=</span><span>+</span><span>=</span><span>+</span
+                ><span>=</span><span>)</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>H</span
+                ><span>H</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>H</span><span>H</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>H</span
+                ><span>H</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>=</span><span>=</span><span>=</span><span>=</span
+                ><span>=</span><span>=</span><span>=</span><span>@</span
+                ><span>@</span><span>@</span><span>@</span><span>@</span
+                ><span>@</span><span>=</span><span>=</span><span>=</span
+                ><span>=</span><span>=</span><span>=</span><span>=</span
+                ><span>@</span><span>@</span><span>@</span><span>@</span
+                ><span>@</span><span>@</span><span>@</span><span>@</span
+                ><span>@</span><span>@</span><span>@</span><span>@</span
+                ><span>@</span><span>@</span><span>@</span><span>@</span
+                ><span>@</span><span>@</span><span>@</span><span>@</span
+                ><span>@</span><span>@</span><span>@</span><span>@</span
+                ><span>@</span><span>=</span><span>=</span><span>=</span
+                ><span>=</span><span>=</span><span>=</span><span>=</span
+                ><span>@</span><span>@</span><span>@</span><span>@</span
+                ><span>@</span><span>@</span><span>=</span><span>=</span
+                ><span>=</span><span>=</span><span>=</span><span>=</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>\</span
+                ><span>\</span><span>@</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>@</span><span>/</span><span>/</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>\</span
+                ><span>\</span><span>@</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>@</span><span>/</span><span>/</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>\</span><span>\</span><span>@</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>@</span><span>/</span><span>/</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
+            </div>
+            <div>
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>\</span><span>@</span
+                ><span class="floaty-text"
+                    ><span style="--i: 8">_</span><span style="--i: 9">%</span
+                    ><span style="--i: 10">_</span></span
+                >
+                <span>@</span><span>/</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>\</span><span>@</span
+                ><span class="floaty-text"
+                    ><span style="--i: 21">_</span><span style="--i: 22">_</span
+                    ><span style="--i: 23">%</span><span style="--i: 24">_</span
+                    ><span style="--i: 25">_</span></span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span
+                ><span class="floaty-text"
+                    ><span style="--i: 36">_</span><span style="--i: 37">_</span
+                    ><span style="--i: 38">%</span><span style="--i: 39">_</span
+                    ><span style="--i: 40">_</span></span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>@</span><span>/</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>\</span><span>@</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>@</span><span>/</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span>
+            </div>
+            <div id="water" class="floaty-text">
+                <span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span
+                ><span>~</span><span>~</span><span>~</span><span>~</span>
+            </div>
+            <div class="floaty-text">
+                <span>&nbsp;</span><span>&nbsp;</span
+                ><span style="--i: 33">~</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span
+                ><span style="--i: 5">~</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span style="--i: 35">~</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span style="--i: 14">~</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span style="--i: 8">~</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span style="--i: 19">~</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span style="--i: 63">~</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span style="--i: 23">~</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span style="--i: 9">~</span><span style="--i: 10">~</span>
+            </div>
+            <div class="floaty-text">
+                <span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span style="--i: 24">~</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span style="--i: 58">~</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span style="--i: 63">~</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span style="--i: 32">~</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span
+                ><span style="--i: 62">~</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span style="--i: 22">~</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span
+                ><span>&nbsp;</span><span style="--i: 38">~</span
+                ><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
+            </div>
+        </div>
+        <script>
+            let floatyTexts = Array.prototype.slice.call(
+                document.getElementById("water").children,
+            );
+            for (let i = 0; i < floatyTexts.length; i++) {
+                floatyTexts[i].style.setProperty("--i", i);
+            }
+        </script>
+        <script>
+            // Linearly interpolates between a and b over time t
+            function lerp(a, b, t) {
+                return a + (b - a) * t;
+            }
+
+            // Lerp between 2d vectors
+            function vlerp(vecA, vecB, t) {
+                return {
+                    x: lerp(vecA.x, vecB.x, t),
+                    y: lerp(vecA.y, vecB.y, t),
+                };
+            }
+
+            const SCREEN_LAG_MAGIC_NUM = 0.1;
+            const TICK_INTERVAL = 33;
+            let scrollTarget = { x: 0, y: 0 };
+            let scrollPos = { x: 0, y: 0 };
+            function _process() {
+                scrollPos = vlerp(
+                    scrollPos,
+                    scrollTarget,
+                    SCREEN_LAG_MAGIC_NUM,
+                );
+
+                window.scroll(scrollPos.x, scrollPos.y);
+            }
+
+            setInterval(_process, TICK_INTERVAL);
+
+            let worldContainer = document.getElementById("world-container");
+            console.log(
+                "Width, window: " +
+                    window.innerWidth +
+                    ", world: " +
+                    worldContainer.offsetWidth,
+            );
+            console.log(
+                "Height, window: " +
+                    window.innerHeight +
+                    ", world: " +
+                    worldContainer.offsetHeight,
+            );
+
+            let mouseX, mouseY;
+            document.onmousemove = handleMouseMove;
+            function handleMouseMove(event) {
+                event = event || window.event; // IE-ism
+                mouseX = event.pageX;
+                mouseY = event.pageY;
+
+                let widthDiff = worldContainer.offsetWidth - window.innerWidth;
+                let heightDiff =
+                    worldContainer.offsetHeight - window.innerHeight;
+
+                let xPercent = mouseX / window.innerWidth;
+                let yPercent = mouseY / window.innerHeight;
+
+                scrollTarget.x = xPercent * widthDiff;
+                scrollTarget.y = yPercent * heightDiff;
+
+                console.log(scrollTarget);
+            }
+        </script>
+    </body>
+</html>
