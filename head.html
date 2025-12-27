@@ -1,0 +1,78 @@
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ASCII Map Export</title>
+    <style>
+        :root {
+            --pixel-size: 1.6vw;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            font-family:
+                "MxPlus IBM BIOS", "Fira Mono", "Consolas", "Menlo", "Monaco",
+                "Liberation Mono", monospace;
+            font-size: var(--pixel-size);
+            color: #000000;
+            overflow: hidden;
+        }
+
+        #world-container {
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+        }
+
+        #world-container > div {
+            height: var(--pixel-size);
+            white-space: nowrap;
+            display: inline-block;
+        }
+        div span {
+            height: inherit;
+            width: var(--pixel-size);
+            display: inline-block;
+        }
+
+        .layer {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+
+        tr {
+            margin: 0;
+            padding: 0;
+            height: var(--pixel-size);
+            white-space: nowrap;
+            //display: inline-block;
+        }
+        td {
+            margin: 0;
+            padding: 0;
+            height: inherit;
+            width: var(--pixel-size);
+            //display: inline-block;
+        }
+
+        @keyframes text-wave {
+            0%,
+            100% {
+                top: 0.2em;
+            }
+            50% {
+                top: -0.2em;
+            }
+        }
+
+        .floaty-text {
+            position: relative;
+            animation-name: text-wave;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            animation-delay: calc(-0.2s * var(--i));
+        }
+    </style>
+</head>
