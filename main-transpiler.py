@@ -1,3 +1,4 @@
+import json
 import os
 import sys
 
@@ -110,14 +111,47 @@ currentLayerIndex = 0
 # Could be fun?
 
 # TODO: Process background
-#       - Define page dimensions
-#       - Create list of row strings
+#       - ~~Define page dimensions~~
+#       - ~~Create list of row strings~~
 #       - Create cells, appending them to row string
 #           - Give each cell a bkg color using the style property
 #           - Throw out characters and foreground color
 #           - Give each cell an ID according to this scheme: `id="COLUMN-ROW"`
 #       - Append row strings together
-#       - Add wrapping table HTML with `id="background"`
+#       - Add wrapping table HTML with `id="bkg-layer"`
+fileContents = ""
+with open(bkgFilePath, "r") as file:
+    fileContents = json.loads(file.read())
+
+EXPECTED_DIMENSIONS = fileContents["dimensions"]
+rows = fileContents["grid"]
+rowStrings = []
+for rowNum in range(EXPECTED_DIMENSIONS["rows"]):
+    rowString = "<tr>"
+    for colNum in range(EXPECTED_DIMENSIONS["cols"]):
+        cellString = (
+            '<td id="'
+            + str(colNum)
+            + "-"
+            + str(rowNum)
+            + '" style="background-color: '
+            + rows[rowNum][colNum]["bg"]
+            + '"></td>'
+        )
+        rowString += cellString
+
+    rowString += "</tr>"
+    rowStrings.append(rowString)
+
+tableString = (
+    '<table id="bkg-layer" style="z-index: 0;" cellspacing="0" cellpadding="0">'
+)
+for rowString in rowStrings:
+    tableString += rowString
+tableString += "</table>"
+
+with open("testOut.html", "w") as file:
+    file.write(tableString)
 
 # TODO: Process character layers
 #       - FOR EACH LAYER
@@ -129,4 +163,15 @@ currentLayerIndex = 0
 #       - Add wrapping table HTML with `class="character-layer" style="z-index: i;"`
 
 # TODO: Process group layers
-#       -
+#       - FOR EACH LAYER
+#       - FOR EACH CELL WITH BKG COLOR
+#       - Generate group HTML with function
+#       - Attach group to bkg cell, absolute pos (0,0), z-index of layer index
+
+# TODO: Combine strings into one
+#       - Combine all layer strings into one
+#       - Append scripts links div string to the end
+#       - Add head and body to template
+
+# TODO: Export
+#       - Export as one HTML File
