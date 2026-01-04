@@ -2,7 +2,7 @@ import json
 import os
 import sys
 
-import charAttrFuncs
+import charTransFuncs
 
 # Defaults
 GROUPS_DIRECTORY = "groups/"
@@ -133,60 +133,6 @@ for rowNum in range(EXPECTED_DIMENSIONS["rows"]):
 #           - Add charTransFunc output to cell on background color
 #       - Append row strings together
 #       - Add wrapping table HTML with `class="character-layer" style="z-index: i;"`
-unknownHexcodesSeen = []
-if charFilePaths != None:
-    for layerNum in range(len(charFilePaths)):
-        with open(charFilePaths[layerNum], "r") as file:
-            fileContents = json.loads(file.read())
-
-        if fileContents["dimensions"] != EXPECTED_DIMENSIONS:
-            print(
-                'Error: Character layer "'
-                + charFilePaths[layerNum]
-                + '" does not match expected dimensions.'
-            )
-            exit(-1)
-
-        grid = fileContents["grid"]
-        for rowNum in range(EXPECTED_DIMENSIONS["rows"]):
-            for colNum in range(EXPECTED_DIMENSIONS["cols"]):
-                # Special case: Skip cells with bkg color #FFFFFF.
-                # Used to hide characters only needed to force ASCII Studio to export in the correct dimensions.
-                if grid[rowNum][colNum]["bg"] == "#ffffff":
-                    continue
-
-                # Special case: Ignore whitespace
-                if grid[rowNum][colNum]["char"] == " ":
-                    continue
-
-                # Get character attrivutes
-                charAttributes = charAttrFuncs.hexToCharAttributes(
-                    colNum,
-                    rowNum,
-                    grid[rowNum][colNum]["char"],
-                    grid[rowNum][colNum]["fg"],
-                    grid[rowNum][colNum]["bg"],
-                    layerNum + 1,
-                )
-
-                if charAttributes == None:
-                    charAttributes = 'style="z-index: ' + str(layerNum + 1) + ';"'
-
-                    if grid[rowNum][colNum]["bg"] not in unknownHexcodesSeen:
-                        print(
-                            'Error: Could not find character transformation function corresponding to the hex code "'
-                            + grid[rowNum][colNum]["bg"]
-                            + '"'
-                        )
-                        unknownHexcodesSeen.append(grid[rowNum][colNum]["bg"])
-
-                canvasGrid[rowNum][colNum].append(
-                    "<span "
-                    + charAttributes
-                    + ">"
-                    + grid[rowNum][colNum]["char"]
-                    + "</span>"
-                )
 
 
 # TODO: Process group layers
@@ -212,7 +158,7 @@ if groupFilePaths != None:
 with open(bkgFilePath, "r") as file:
     fileContents = json.loads(file.read())
 
-grid = fileContents["grid"]
+rows = fileContents["grid"]
 rowStrings = []
 for rowNum in range(EXPECTED_DIMENSIONS["rows"]):
     rowString = "<div>"
@@ -223,44 +169,26 @@ for rowNum in range(EXPECTED_DIMENSIONS["rows"]):
             + "-"
             + str(rowNum)
             + '" style="background-color: '
-            + grid[rowNum][colNum]["bg"]
-            + '">'
-            + "".join(canvasGrid[rowNum][colNum])
-            + "</span>"
+            + rows[rowNum][colNum]["bg"]
+            + '"></span>'
         )
         rowString += cellString
 
     rowString += "</div>"
     rowStrings.append(rowString)
 
-gridString = '<div id="bkg-layer" class="layer" style="z-index: 0;">'
+gridString = '<div id="bkg-layer" style="z-index: 0;" cellspacing="0" cellpadding="0">'
 for rowString in rowStrings:
     gridString += rowString
 gridString += "</div>"
+
+with open("testOut.html", "w") as file:
+    file.write(gridString)
 
 # TODO: Combine strings into one
 #       - Combine all layer strings into one
 #       - Append scripts links div string to the end
 #       - Add head and body to template
-fileString = '<!doctype html><html lang="en">'
-
-# HTML Head
-with open(HEAD_FILE_PATH, "r") as file:
-    fileContents = file.read()
-fileString += fileContents
-
-# HTML Body
-fileString += '<body><div id="world-container">'
-fileString += gridString
-fileString += "</div>"  # close world container
-# Post-Body Scripts
-with open(SCRIPT_LINKS_FILE_PATH, "r") as file:
-    fileContents = file.read()
-fileString += fileContents
-
-fileString += "</body>"
 
 # TODO: Export
 #       - Export as one HTML File
-with open("testOut.html", "w") as file:
-    file.write(fileString)
