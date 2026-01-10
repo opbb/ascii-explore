@@ -1,0 +1,112 @@
+:root {
+    --pixel-size: 2vw;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    font-family:
+        "MxPlus_IBM_BIOS_Centered", "Fira Mono", "Consolas", "Menlo", "Monaco",
+        "Liberation Mono", monospace;
+    /*font-size: 10px;*/
+    font-size: var(--pixel-size);
+    color: #000000;
+    text-align: center;
+    overflow: hidden;
+}
+
+#world-container {
+    position: relative;
+    left: auto;
+    margin: 0;
+    padding: 0;
+    width: fit-content;
+    display: inline-block;
+}
+
+.absolute-overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.layer {
+    display: inline-block;
+}
+
+/* Row */
+div.layer > div {
+    margin: 0;
+    padding: 0;
+    height: var(--pixel-size);
+    white-space: nowrap;
+}
+
+/* Cell */
+div.layer > div > span {
+    margin: 0;
+    padding: 0;
+    height: var(--pixel-size);
+    width: var(--pixel-size);
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    line-height: var(--pixel-size);
+}
+
+/* Character */
+div.layer > div > span > span {
+    margin: 0;
+    padding: 0;
+    height: var(--pixel-size);
+    width: var(--pixel-size);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    text-align: center;
+    line-height: var(--pixel-size);
+}
+
+/* === ANIMATIONS === */
+
+/* Torch Glow Animation */
+
+.four-by-four-glow {
+    width: calc(2 * var(--pixel-size));
+    height: calc(2 * var(--pixel-size));
+    animation: glow-pulse 5s ease-in-out infinite alternate;
+}
+
+.glow-pulse-test {
+    animation: glow-pulse 5s ease-in-out infinite alternate;
+}
+
+@keyframes glow-pulse {
+    from {
+        box-shadow: 0 0 calc(4 * var(--pixel-size)) var(--pixel-size) #fff;
+    }
+    to {
+        box-shadow: 0 0 calc(4 * var(--pixel-size)) calc(2 * var(--pixel-size))
+            #ff4da6;
+    }
+}
+
+/* Water Animation */
+
+@keyframes text-wave {
+    0%,
+    100% {
+        top: 0.2em;
+    }
+    50% {
+        top: -0.2em;
+    }
+}
+
+.floaty-text {
+    animation-name: text-wave;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-delay: calc(-0.2s * var(--i));
+}
