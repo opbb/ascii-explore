@@ -52,7 +52,9 @@ def makeFloaty(
 def makeGlow(
     x: int, y: int, character: str, color: str, bkgHex: str, zIndex: int
 ) -> str:
-    return defaultStyleAttr(color, zIndex)  # stub method
+    return (
+        'class="glow-pulse" style="' + zIndexString(zIndex) + colorString(color) + '"'
+    )
 
 
 def makeFountain(

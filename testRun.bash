@@ -1,0 +1,1 @@
+hub-transpile example-project/ex-bkg.json -c example-project/ex-characterLayer-foreground.json -c example-project/ex-characterLayer-water.json -c example-project/ex-characterLayer-lilypads.json -g example-project/ex-groupLayer-lampGlow.json

@@ -3,21 +3,27 @@ import os
 import sys
 
 import charAttrFuncs
+import groups
 
 # Defaults
-GROUPS_DIRECTORY = "groups/"
+GROUPS_DIRECTORY = "groups/"  # Unused currently. Id like to give each group it's own file, but havent set that up yet
 HEAD_FILE_PATH = "head.html"
 SCRIPT_LINKS_FILE_PATH = "scriptLinks.html"
 CURRENT_DIRECTORY_PATH = os.getcwd()
 charArgIndex, groupArgIndex = -1, -1
 
-HELP_TEXT = "Expected args: backgroundFile -c characterFile1 ... characterFileN -g groupFile1 ... groupFileM\nFile paths should be relative to the current directory."
+HELP_TEXT = "Expected args: backgroundFile [-c characterFile]* [-g groupFile]*\nEach character/group file must be preceeded by its option.\nFiles should be listed in order of z-index.\nFile paths should be relative to the current directory."
+
+if len(sys.argv) < 2:
+    print("Error: Must include the background layer file as an argument.")
+    exit(-1)
+
+layerCounter = 1
+layerFilePaths = [sys.argv[1]]
+charLayerIndices = []
+groupLayerIndices = []
 for i in range(1, len(sys.argv)):
     match sys.argv[i]:
-        case "-c":
-            charArgIndex = i
-        case "-g":
-            groupArgIndex = i
         case "-h":
             print(HELP_TEXT)
             exit(0)
@@ -25,65 +31,63 @@ for i in range(1, len(sys.argv)):
             print(HELP_TEXT)
             exit(0)
 
-if len(sys.argv) < 2:
-    print("Error: Must include the background layer file as an argument.")
-    exit(-1)
+    if i == 1:
+        if sys.argv[i] == "-c" or sys.argv[i] == "-g":
+            print("Error: First argument must be the background file.")
+            exit(-1)
+        continue
 
-if charArgIndex == 1 or groupArgIndex == 1:
-    print("Error: The first argument must be the background layer file.")
-    exit(-1)
+    match sys.argv[i]:
+        case "-c":
+            if len(sys.argv) <= (i + 1):
+                print('Error: Trailing "-c" is missing its file path.')
+                exit(-1)
+            layerFilePaths.insert(layerCounter, sys.argv[i + 1])
+            charLayerIndices.append(layerCounter)
+            layerCounter += 1
+
+        case "-g":
+            if len(sys.argv) <= (i + 1):
+                print('Error: Trailing "-g" is missing its file path.')
+                exit(-1)
+            layerFilePaths.insert(layerCounter, sys.argv[i + 1])
+            groupLayerIndices.append(layerCounter)
+            layerCounter += 1
 
 
 # Process command line arguments
 
-bkgFilePath = sys.argv[1]
-
-charFilePaths = None
-if charArgIndex != -1:
-    charFilePaths = sys.argv[
-        (charArgIndex + 1) : (
-            groupArgIndex if groupArgIndex > charArgIndex else len(sys.argv)
-        )
-    ]
-    if len(charFilePaths) == 0:
-        charFilePaths = None
-
-groupFilePaths = None
-if groupArgIndex != -1:
-    groupFilePaths = sys.argv[
-        (groupArgIndex + 1) : (
-            charArgIndex if charArgIndex > groupArgIndex else len(sys.argv)
-        )
-    ]
-    if len(groupFilePaths) == 0:
-        groupFilePaths = None
-
-
 # Check if given files exist
 
-if not os.path.isfile(bkgFilePath):
-    print('Error: Could not find given file "' + bkgFilePath + '"')
+if not os.path.isfile(layerFilePaths[0]):
+    print('Error: Could not find given background file "' + layerFilePaths[0] + '"')
     exit(-1)
 
-if charFilePaths != None:
-    for charFilePath in charFilePaths:
-        if not os.path.isfile(charFilePath):
-            print('Error: Could not find given file "' + charFilePath + '"')
-            exit(-1)
+for layerIndex in charLayerIndices:
+    if not os.path.isfile(layerFilePaths[layerIndex]):
+        print(
+            'Error: Could not find given character file "'
+            + layerFilePaths[layerIndex]
+            + '"'
+        )
+        exit(-1)
 
-if groupFilePaths != None:
-    for groupFilePath in groupFilePaths:
-        if not os.path.isfile(groupFilePath):
-            print('Error: Could not find given file "' + groupFilePath + '"')
-            exit(-1)
+for layerIndex in groupLayerIndices:
+    if not os.path.isfile(layerFilePaths[layerIndex]):
+        print(
+            'Error: Could not find given group file "'
+            + layerFilePaths[layerIndex]
+            + '"'
+        )
+        exit(-1)
 
-if not os.path.isdir(GROUPS_DIRECTORY):
-    print(
-        'Error: Could not find the groups directory, which should be named  "'
-        + GROUPS_DIRECTORY
-        + '"'
-    )
-    exit(-1)
+# if not os.path.isdir(GROUPS_DIRECTORY):
+#     print(
+#         'Error: Could not find the groups directory, which should be named  "'
+#         + GROUPS_DIRECTORY
+#         + '"'
+#     )
+#     exit(-1)
 
 if not os.path.isfile(HEAD_FILE_PATH):
     print(
@@ -101,9 +105,6 @@ if not os.path.isfile(SCRIPT_LINKS_FILE_PATH):
     )
     exit(-1)
 
-# ~~List containing all layers in order~~
-# ~~layers = []~~
-
 currentLayerIndex = 0
 
 # Make a generic table creation function?
@@ -112,7 +113,7 @@ currentLayerIndex = 0
 # Could be fun?
 
 fileContents = ""
-with open(bkgFilePath, "r") as file:
+with open(layerFilePaths[0], "r") as file:
     fileContents = json.loads(file.read())
 
 # Dimensions Format = `"dimensions": { "rows": 36, "cols": 64 }`
@@ -125,80 +126,111 @@ for rowNum in range(EXPECTED_DIMENSIONS["rows"]):
     for colNum in range(EXPECTED_DIMENSIONS["cols"]):
         canvasGrid[rowNum].insert(colNum, [])
 
-# TODO: Process character layers
-#       - FOR EACH LAYER
-#       - Create list of row strings
-#       - Create cells, appending them to row string
-#           - Special case: Check for #FFFFFF background color. Remove character if found.
-#           - Add charTransFunc output to cell on background color
-#       - Append row strings together
-#       - Add wrapping table HTML with `class="character-layer" style="z-index: i;"`
+# Process character layers
 unknownHexcodesSeen = []
-if charFilePaths != None:
-    for layerNum in range(len(charFilePaths)):
-        with open(charFilePaths[layerNum], "r") as file:
-            fileContents = json.loads(file.read())
+for layerIndex in charLayerIndices:
+    with open(layerFilePaths[layerIndex], "r") as file:
+        fileContents = json.loads(file.read())
 
-        if fileContents["dimensions"] != EXPECTED_DIMENSIONS:
-            print(
-                'Error: Character layer "'
-                + charFilePaths[layerNum]
-                + '" does not match expected dimensions.'
+    if fileContents["dimensions"] != EXPECTED_DIMENSIONS:
+        print(
+            'Error: Character layer "'
+            + layerFilePaths[layerIndex]
+            + '" does not match expected dimensions.'
+        )
+        exit(-1)
+
+    grid = fileContents["grid"]
+    for rowNum in range(EXPECTED_DIMENSIONS["rows"]):
+        for colNum in range(EXPECTED_DIMENSIONS["cols"]):
+            # Special case: Skip cells with bkg color #FFFFFF.
+            # Used to hide characters only needed to force ASCII Studio to export in the correct dimensions.
+            if grid[rowNum][colNum]["bg"] == "#ffffff":
+                continue
+
+            # Special case: Ignore whitespace
+            if grid[rowNum][colNum]["char"] == " ":
+                continue
+
+            # Get character attributes
+            charAttributes = charAttrFuncs.hexToCharAttributes(
+                colNum,
+                rowNum,
+                grid[rowNum][colNum]["char"],
+                grid[rowNum][colNum]["fg"],
+                grid[rowNum][colNum]["bg"],
+                layerIndex,
             )
-            exit(-1)
 
-        grid = fileContents["grid"]
-        for rowNum in range(EXPECTED_DIMENSIONS["rows"]):
-            for colNum in range(EXPECTED_DIMENSIONS["cols"]):
-                # Special case: Skip cells with bkg color #FFFFFF.
-                # Used to hide characters only needed to force ASCII Studio to export in the correct dimensions.
-                if grid[rowNum][colNum]["bg"] == "#ffffff":
-                    continue
+            if charAttributes is None:
+                charAttributes = 'style="z-index: ' + str(layerIndex) + ';"'
 
-                # Special case: Ignore whitespace
-                if grid[rowNum][colNum]["char"] == " ":
-                    continue
+                if grid[rowNum][colNum]["bg"] not in unknownHexcodesSeen:
+                    print(
+                        'Error: Could not find character transformation function corresponding to the hex code "'
+                        + grid[rowNum][colNum]["bg"]
+                        + '"'
+                    )
+                    unknownHexcodesSeen.append(grid[rowNum][colNum]["bg"])
 
-                # Get character attrivutes
-                charAttributes = charAttrFuncs.hexToCharAttributes(
-                    colNum,
-                    rowNum,
-                    grid[rowNum][colNum]["char"],
-                    grid[rowNum][colNum]["fg"],
-                    grid[rowNum][colNum]["bg"],
-                    layerNum + 1,
-                )
-
-                if charAttributes == None:
-                    charAttributes = 'style="z-index: ' + str(layerNum + 1) + ';"'
-
-                    if grid[rowNum][colNum]["bg"] not in unknownHexcodesSeen:
-                        print(
-                            'Error: Could not find character transformation function corresponding to the hex code "'
-                            + grid[rowNum][colNum]["bg"]
-                            + '"'
-                        )
-                        unknownHexcodesSeen.append(grid[rowNum][colNum]["bg"])
-
-                canvasGrid[rowNum][colNum].append(
-                    "<span "
-                    + charAttributes
-                    + ">"
-                    + grid[rowNum][colNum]["char"]
-                    + "</span>"
-                )
+            canvasGrid[rowNum][colNum].append(
+                "<span "
+                + charAttributes
+                + ">"
+                + grid[rowNum][colNum]["char"]
+                + "</span>"
+            )
 
 
 # TODO: Process group layers
 #       - FOR EACH LAYER
-#       - FOR EACH CELL WITH BKG COLOR
+#       - FOR EACH CELL WITH FG COLOR
 #       - Generate group HTML with function
 #       - Attach group to bkg cell, absolute pos (0,0), z-index of layer index
 
-if groupFilePaths != None:
-    for groupFilePath in groupFilePaths:
-        with open(groupFilePath, "r") as file:
-            fileContents = json.loads(file.read())
+unknownGroupCodesSeen = []
+for layerIndex in groupLayerIndices:
+    with open(layerFilePaths[layerIndex], "r") as file:
+        fileContents = json.loads(file.read())
+
+    if fileContents["dimensions"] != EXPECTED_DIMENSIONS:
+        print(
+            'Error: Group layer "'
+            + layerFilePaths[layerIndex]
+            + '" does not match expected dimensions.'
+        )
+        exit(-1)
+
+    grid = fileContents["grid"]
+    for rowNum in range(EXPECTED_DIMENSIONS["rows"]):
+        for colNum in range(EXPECTED_DIMENSIONS["cols"]):
+            if (
+                grid[rowNum][colNum]["fg"].upper() == "#FFFFFF"
+                or grid[rowNum][colNum]["fg"] == "#000000"
+            ):
+                # White or black are default, ignore them.
+                continue
+            groupString = groups.hexToGroup(
+                colNum,
+                rowNum,
+                grid[rowNum][colNum]["char"],
+                grid[rowNum][colNum]["fg"],
+                grid[rowNum][colNum]["bg"],
+                layerIndex,
+            )
+
+            if groupString is None:
+                if grid[rowNum][colNum]["fg"] not in unknownGroupCodesSeen:
+                    print(
+                        'Error: Could not find group corresponding to the hex code "'
+                        + grid[rowNum][colNum]["fg"]
+                        + '"'
+                    )
+                    unknownGroupCodesSeen.append(grid[rowNum][colNum]["fg"])
+                continue
+
+            canvasGrid[rowNum][colNum].append(groupString)
+
 
 # TODO: Process background
 #       - ~~Define page dimensions~~
@@ -209,7 +241,7 @@ if groupFilePaths != None:
 #           - Give each cell an ID according to this scheme: `id="COLUMN-ROW"`
 #       - Append row strings together
 #       - Add wrapping table HTML with `id="bkg-layer"`
-with open(bkgFilePath, "r") as file:
+with open(layerFilePaths[0], "r") as file:
     fileContents = json.loads(file.read())
 
 grid = fileContents["grid"]
