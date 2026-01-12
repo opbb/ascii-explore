@@ -11,6 +11,8 @@ HEAD_FILE_PATH = "head.html"
 SCRIPT_LINKS_FILE_PATH = "scriptLinks.html"
 CURRENT_DIRECTORY_PATH = os.getcwd()
 charArgIndex, groupArgIndex = -1, -1
+persistentCharAttrData = {}
+persistentGroupsData = {}
 
 HELP_TEXT = "Expected args: backgroundFile [-c characterFile]* [-g groupFile]*\nEach character/group file must be preceeded by its option.\nFiles should be listed in order of z-index.\nFile paths should be relative to the current directory."
 
@@ -160,6 +162,7 @@ for layerIndex in charLayerIndices:
                 grid[rowNum][colNum]["fg"],
                 grid[rowNum][colNum]["bg"],
                 layerIndex,
+                persistentCharAttrData,
             )
 
             if charAttributes is None:
@@ -207,6 +210,8 @@ for layerIndex in groupLayerIndices:
             if (
                 grid[rowNum][colNum]["fg"].upper() == "#FFFFFF"
                 or grid[rowNum][colNum]["fg"] == "#000000"
+                or grid[rowNum][colNum]["fg"] == "rgb(255, 255, 255)"
+                or grid[rowNum][colNum]["fg"] == "rgb(0, 0, 0)"
             ):
                 # White or black are default, ignore them.
                 continue
@@ -217,6 +222,7 @@ for layerIndex in groupLayerIndices:
                 grid[rowNum][colNum]["fg"],
                 grid[rowNum][colNum]["bg"],
                 layerIndex,
+                persistentGroupsData,
             )
 
             if groupString is None:

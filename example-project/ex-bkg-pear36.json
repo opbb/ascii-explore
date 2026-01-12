@@ -6815,12 +6815,12 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#ffe478"
+        "bg": "#FFB570"
       },
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#ffe478"
+        "bg": "#FFB570"
       },
       {
         "char": " ",
@@ -7040,12 +7040,12 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#ffe478"
+        "bg": "#FFB570"
       },
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#ffe478"
+        "bg": "#FFB570"
       },
       {
         "char": " ",
@@ -7137,12 +7137,12 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#ffe478"
+        "bg": "#FFB570"
       },
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#ffe478"
+        "bg": "#FFB570"
       },
       {
         "char": " ",
@@ -7362,12 +7362,12 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#ffe478"
+        "bg": "#FFB570"
       },
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#ffe478"
+        "bg": "#FFB570"
       },
       {
         "char": " ",
@@ -8430,7 +8430,7 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#606070"
+        "bg": "#7E7E8F"
       },
       {
         "char": " ",
@@ -8525,7 +8525,7 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#606070"
+        "bg": "#7E7E8F"
       },
       {
         "char": " ",
@@ -8580,7 +8580,7 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#606070"
+        "bg": "#7E7E8F"
       },
       {
         "char": " ",
@@ -8655,7 +8655,7 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#606070"
+        "bg": "#7E7E8F"
       },
       {
         "char": " ",
@@ -8982,7 +8982,7 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#7E7E8F"
+        "bg": "#606070"
       },
       {
         "char": " ",
@@ -9309,7 +9309,7 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#606070"
+        "bg": "#7E7E8F"
       },
       {
         "char": " ",
@@ -9376,112 +9376,7 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
         "bg": "#4B5BAB"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
       },
       {
         "char": " ",
@@ -9627,6 +9522,111 @@
         "char": " ",
         "fg": "#FFFFFF",
         "bg": "#4B5BAB"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#4B5BAB"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
       },
       {
         "char": " ",
@@ -9683,6 +9683,106 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
+        "bg": "#4B5BAB"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#4B5BAB"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
         "bg": "#473B78"
       },
       {
@@ -9813,46 +9913,6 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#4B5BAB"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
         "bg": "#4B5BAB"
       },
       {
@@ -9918,67 +9978,7 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
         "bg": "#4B5BAB"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#4B5BAB"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
       },
       {
         "char": " ",
@@ -10030,82 +10030,12 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
-        "bg": "#4B5BAB"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
         "bg": "#473B78"
       },
       {
         "char": " ",
         "fg": "#FFFFFF",
         "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#4B5BAB"
       },
       {
         "char": " ",
@@ -10205,6 +10135,76 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
         "bg": "#4B5BAB"
       },
       {
@@ -10275,17 +10275,17 @@
       {
         "char": " ",
         "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
+        "bg": "#473B78"
+      },
+      {
+        "char": " ",
+        "fg": "#FFFFFF",
         "bg": "#4B5BAB"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
-      },
-      {
-        "char": " ",
-        "fg": "#FFFFFF",
-        "bg": "#473B78"
       },
       {
         "char": " ",

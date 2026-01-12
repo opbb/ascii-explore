@@ -1,0 +1,27 @@
+:root {
+    /* Color Palette (source: https://lospec.com/palette-list/kaeru24x) */
+    --p-black: #00000d;
+    --p-baltic: #252928;
+    --p-hemlock: #566349;
+    --p-olive: #afb38b;
+    --p-coriander: #d2d4ab;
+    --p-white: #f2f1e9;
+    --p-plum: #750641;
+    --p-cherry: #d60f37;
+    --p-cranberry: #eb546b;
+    --p-rust: #cf5b13;
+    --p-mustard: #e6ab22;
+    --p-sand: #f5c86e;
+    --p-melon: #118a19;
+    --p-mint: #1fcf62;
+    --p-foam: #6ff2c2;
+    --p-saphire: #0d40a6;
+    --p-water: #167cb8;
+    --p-sky: #7bcde8;
+    --p-indigo: #2d0a8c;
+    --p-violet: #6a18ad;
+    --p-lavendar: #e37df5;
+    --p-mulberry: #990e53;
+    --p-cerise: #cf1992;
+    --p-orchid: #f065dd;
+}

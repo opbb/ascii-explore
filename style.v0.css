@@ -1,13 +1,49 @@
 :root {
     --pixel-size: 2vw;
+
+    /* color palette (source: https://lospec.com/palette-list/pear36) */
+    --p-00: #5e315b;
+    --p-01: #8c3f5d;
+    --p-02: #ba6156;
+    --p-03: #f2a65e;
+    --p-04: #ffe478;
+    --p-05: #cfff70;
+    --p-06: #8fde5d;
+    --p-07: #3ca370;
+    --p-08: #3d6e70;
+    --p-09: #323e4f;
+    --p-10: #322947;
+    --p-11: #473b78;
+    --p-12: #4b5bab;
+    --p-13: #4da6ff;
+    --p-14: #66ffe3;
+    --p-15: #ffffeb;
+    --p-16: #c2c2d1;
+    --p-17: #7e7e8f;
+    --p-18: #606070;
+    --p-19: #43434f;
+    --p-20: #272736;
+    --p-21: #3e2347;
+    --p-22: #57294b;
+    --p-23: #964253;
+    --p-24: #e36956;
+    --p-25: #ffb570;
+    --p-26: #ff9166;
+    --p-27: #eb564b;
+    --p-28: #b0305c;
+    --p-29: #73275c;
+    --p-30: #422445;
+    --p-31: #5a265e;
+    --p-32: #80366b;
+    --p-33: #bd4882;
+    --p-34: #ff6b97;
+    --p-35: #ffb5b5;
 }
 body {
     margin: 0;
     padding: 0;
-    background-color: #ffffff;
-    font-family:
-        "MxPlus_IBM_BIOS_Centered", "Fira Mono", "Consolas", "Menlo", "Monaco",
-        "Liberation Mono", monospace;
+    background-color: #000000;
+    font-family: "MxPlus_IBM_BIOS_Centered", monospace;
     /*font-size: 10px;*/
     font-size: var(--pixel-size);
     color: #000000;
@@ -67,7 +103,94 @@ div.layer > div > span > span {
     line-height: var(--pixel-size);
 }
 
+/* === Character Effects */
+.fade-underwater {
+    opacity: calc(0.4 / var(--fade-depth));
+}
+
 /* === ANIMATIONS === */
+
+/* Star Animations */
+.pulsing-star {
+    color: #fff;
+    animation-name: pulsing-star;
+    animation-duration: var(--pulse-duration); /* Added programmatically */
+    animation-delay: var(--pulse-delay); /* Added programmatically */
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+/* --max-brightness and --min-brightness added programmatically */
+@keyframes pulsing-star {
+    0% {
+        opacity: var(--max-brightness);
+        scale: calc(0.5 + 0.5 * var(--max-brightness));
+    }
+    50% {
+        opacity: var(--min-brightness);
+        scale: calc(0.5 + 0.5 * var(--min-brightness));
+    }
+    100% {
+        opacity: var(--max-brightness);
+        scale: calc(0.5 + 0.5 * var(--max-brightness));
+    }
+}
+
+.twinkling-star {
+    display: inline-block;
+    width: var(--pixel-size);
+    height: var(--pixel-size);
+}
+
+.twinkling-star > span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #fff;
+    display: inline-block;
+    width: var(--pixel-size);
+    height: var(--pixel-size);
+    animation-name: twinkling-star-pattern-1;
+    animation-duration: var(--twinkle-duration); /* Added programmatically */
+    animation-delay: var(--twinkle-delay); /* Added programmatically */
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.twinkling-star > span:nth-child(4n + 1) {
+    --is-accent: -1;
+}
+
+.twinkling-star > span:nth-child(4n + 2) {
+    --is-accent: 1;
+}
+
+@keyframes twinkling-star-pattern-1 {
+    0% {
+        opacity: calc(0.75 + 0.25 * var(--is-accent));
+    }
+    31% {
+        opacity: calc(0.5 + 0.1 * var(--is-accent));
+    }
+    36% {
+        opacity: calc(0.5 + 0 * var(--is-accent));
+    }
+    52% {
+        opacity: calc(0.5 + 0.2 * var(--is-accent));
+    }
+    59% {
+        opacity: calc(0.5 + -0.25 * var(--is-accent));
+    }
+    89% {
+        opacity: calc(0.5 + -0.15 * var(--is-accent));
+    }
+    94% {
+        opacity: calc(0.5 + 0 * var(--is-accent));
+    }
+    100% {
+        opacity: calc(0.5 + 0.2 * var(--is-accent));
+    }
+}
 
 /* Torch Glow Animation */
 
@@ -75,31 +198,49 @@ div.layer > div > span > span {
     width: calc(2 * var(--pixel-size));
     height: calc(2 * var(--pixel-size));
     animation: glow-pulse 5s ease-in-out infinite alternate;
+    animation-delay: calc(-0.2s * var(--glow-delay));
+    opacity: 0.5;
 }
 
-.glow-pulse-test {
-    animation: glow-pulse 5s ease-in-out infinite alternate;
+.glow-pulse-text {
+    color: var(--p-15);
+    animation: glow-pulse-text 5s ease-in-out infinite alternate;
+    animation-delay: calc(-0.2s * var(--glow-delay));
+}
+
+@keyframes glow-pulse-text {
+    from {
+        opacity: 0.5;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes glow-pulse {
     from {
-        box-shadow: 0 0 calc(4 * var(--pixel-size)) var(--pixel-size) #fff;
+        box-shadow:
+            0 0 calc(3 * var(--pixel-size)) var(--pixel-size) var(--p-15),
+            0 0 calc(6 * var(--pixel-size)) calc(2 * var(--pixel-size))
+                var(--p-03);
     }
     to {
-        box-shadow: 0 0 calc(4 * var(--pixel-size)) calc(2 * var(--pixel-size))
-            #ff4da6;
+        box-shadow:
+            0 0 calc(4 * var(--pixel-size)) calc(1.5 * var(--pixel-size))
+                var(--p-03),
+            0 0 calc(8 * var(--pixel-size)) calc(3 * var(--pixel-size))
+                var(--p-24);
     }
 }
 
 /* Water Animation */
-
 @keyframes text-wave {
     0%,
     100% {
-        top: 0.2em;
+        translate: 0 0.2em;
     }
     50% {
-        top: -0.2em;
+        translate: 0 -0.2em;
     }
 }
 
@@ -108,5 +249,6 @@ div.layer > div > span > span {
     animation-duration: 2s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
+    /*animation-timing-function: steps(24, end);*/
     animation-delay: calc(-0.2s * var(--i));
 }

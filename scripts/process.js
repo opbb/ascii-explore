@@ -12,7 +12,7 @@ function vlerp(vecA, vecB, t) {
 }
 
 const SCREEN_LAG_MAGIC_NUM = 0.1;
-const TICK_INTERVAL = 33;
+const TICK_INTERVAL = 30;
 let scrollTarget = { x: 0, y: 0 };
 let scrollPos = { x: 0, y: 0 };
 function _process() {
