@@ -110,18 +110,9 @@ def makePulsingStar(
 
     return (
         'class="pulsing-star" style="'
-        + "--pulse-duration: "
-        + str(pulseDuration)
-        + "s;"
-        + "--pulse-delay: "
-        + str(pulseDelay)
-        + "s;"
-        + "--max-brightness: "
-        + str(maxBrightness)
-        + ";"
-        + "--min-brightness: "
-        + str(minBrightness)
-        + ";"
-        + zIndexString(zIndex)
-        + '"'
+        + ("--pulse-duration: " + str(pulseDuration) + "s;")
+        + ("--pulse-delay: " + str(pulseDelay) + "s;")
+        + ("--max-brightness: " + str(maxBrightness) + ";")
+        + ("--min-brightness: " + str(minBrightness) + ";")
+        + (zIndexString(zIndex) + '"')
     )

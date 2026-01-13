@@ -146,11 +146,10 @@ div.layer > div > span > span {
     position: absolute;
     top: 0;
     left: 0;
-    color: #fff;
+    color: var(--p-15);
     display: inline-block;
     width: var(--pixel-size);
     height: var(--pixel-size);
-    animation-name: twinkling-star-pattern-1;
     animation-duration: var(--twinkle-duration); /* Added programmatically */
     animation-delay: var(--twinkle-delay); /* Added programmatically */
     animation-iteration-count: infinite;
@@ -158,37 +157,40 @@ div.layer > div > span > span {
 }
 
 .twinkling-star > span:nth-child(4n + 1) {
-    --is-accent: -1;
+    animation-name: twinkling-star-char-1;
 }
 
 .twinkling-star > span:nth-child(4n + 2) {
-    --is-accent: 1;
+    animation-name: twinkling-star-char-2;
 }
 
-@keyframes twinkling-star-pattern-1 {
+@keyframes twinkling-star-char-1 {
     0% {
-        opacity: calc(0.75 + 0.25 * var(--is-accent));
+        visibility: visible;
     }
-    31% {
-        opacity: calc(0.5 + 0.1 * var(--is-accent));
+    49% {
+        visibility: visible;
     }
-    36% {
-        opacity: calc(0.5 + 0 * var(--is-accent));
-    }
-    52% {
-        opacity: calc(0.5 + 0.2 * var(--is-accent));
-    }
-    59% {
-        opacity: calc(0.5 + -0.25 * var(--is-accent));
-    }
-    89% {
-        opacity: calc(0.5 + -0.15 * var(--is-accent));
-    }
-    94% {
-        opacity: calc(0.5 + 0 * var(--is-accent));
+    50% {
+        visibility: hidden;
     }
     100% {
-        opacity: calc(0.5 + 0.2 * var(--is-accent));
+        visibility: hidden;
+    }
+}
+
+@keyframes twinkling-star-char-2 {
+    0% {
+        visibility: hidden;
+    }
+    50% {
+        visibility: hidden;
+    }
+    51% {
+        visibility: visible;
+    }
+    100% {
+        visibility: visible;
     }
 }
 

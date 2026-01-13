@@ -147,7 +147,7 @@ for layerIndex in charLayerIndices:
         for colNum in range(EXPECTED_DIMENSIONS["cols"]):
             # Special case: Skip cells with bkg color #FFFFFF.
             # Used to hide characters only needed to force ASCII Studio to export in the correct dimensions.
-            if grid[rowNum][colNum]["bg"] == "#ffffff":
+            if grid[rowNum][colNum]["bg"].upper() == "#FFFFFF":
                 continue
 
             # Special case: Ignore whitespace
