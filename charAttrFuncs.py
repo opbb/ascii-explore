@@ -26,6 +26,8 @@ def hexToCharAttributes(
             return makePulsingStar(
                 x, y, character, color, bkgHex, zIndex, persistentData
             )
+        case "#0000FF":
+            return makeFog(x, y, character, color, bkgHex, zIndex, persistentData)
     return None
 
 
@@ -116,3 +118,9 @@ def makePulsingStar(
         + ("--min-brightness: " + str(minBrightness) + ";")
         + (zIndexString(zIndex) + '"')
     )
+
+
+def makeFog(
+    x: int, y: int, character: str, color: str, bkgHex: str, zIndex: int, persistentData
+) -> str:
+    return defaultStyleAttr(color, zIndex)  # stub method

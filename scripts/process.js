@@ -11,47 +11,51 @@ function vlerp(vecA, vecB, t) {
   };
 }
 
-const SCREEN_LAG_MAGIC_NUM = 0.1;
-const TICK_INTERVAL = 30;
+const SCREEN_LAG_MAGIC_NUM = 0.005;
+//const TICK_INTERVAL = 30;
 let scrollTarget = { x: 0, y: 0 };
 let scrollPos = { x: 0, y: 0 };
-function _process() {
-  scrollPos = vlerp(scrollPos, scrollTarget, SCREEN_LAG_MAGIC_NUM);
+let lastFrameTimestamp = performance.now();
+function updateScreenPos(timestamp) {
+  timeElapsed = timestamp - lastFrameTimestamp;
+  lastFrameTimestamp = timestamp;
+
+  scrollPos = vlerp(
+    scrollPos,
+    scrollTarget,
+    SCREEN_LAG_MAGIC_NUM * timeElapsed, // Multiply by time elapsed to normalize movement across framerates
+  );
 
   window.scroll(scrollPos.x, scrollPos.y);
+
+  requestAnimationFrame(updateScreenPos);
 }
 
-setInterval(_process, TICK_INTERVAL);
+requestAnimationFrame(updateScreenPos);
 
 let worldContainer = document.getElementById("world-container");
-console.log(
-  "Width, window: " +
-    window.innerWidth +
-    ", world: " +
-    worldContainer.offsetWidth,
-);
-console.log(
-  "Height, window: " +
-    window.innerHeight +
-    ", world: " +
-    worldContainer.offsetHeight,
-);
 
 let mouseX, mouseY;
 document.onmousemove = handleMouseMove;
-function handleMouseMove(event) {
-  event = event || window.event; // IE-ism
-  mouseX = event.pageX;
-  mouseY = event.pageY;
 
-  let widthDiff = worldContainer.offsetWidth - window.innerWidth;
-  let heightDiff = worldContainer.offsetHeight - window.innerHeight;
+// TODO: These need to be updated when the window is resized
+let widthDiff = worldContainer.offsetWidth - window.innerWidth;
+let heightDiff = worldContainer.offsetHeight - window.innerHeight;
+let deadZoneX = 10; // horizontal dead zone in pixels
+let deadZoneY = 10; // vertical dead zone in pixels
+function handleMouseMove(event) {
+  mouseX = event.clientX;
+  mouseY = event.clientY;
 
   let xPercent = mouseX / window.innerWidth;
   let yPercent = mouseY / window.innerHeight;
 
-  scrollTarget.x = xPercent * widthDiff;
-  scrollTarget.y = yPercent * heightDiff;
-
-  console.log(scrollTarget);
+  scrollTarget.x = Math.min(
+    widthDiff - deadZoneX,
+    Math.max(deadZoneX, xPercent * widthDiff),
+  );
+  scrollTarget.y = Math.min(
+    heightDiff - deadZoneY,
+    Math.max(deadZoneY, yPercent * heightDiff),
+  );
 }

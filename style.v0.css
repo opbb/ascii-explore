@@ -1,5 +1,6 @@
 :root {
     --pixel-size: 2vw;
+    /*--pixel-size: 4vw;*/
 
     /* color palette (source: https://lospec.com/palette-list/pear36) */
     --p-00: #5e315b;
@@ -239,10 +240,10 @@ div.layer > div > span > span {
 @keyframes text-wave {
     0%,
     100% {
-        translate: 0 0.2em;
+        translate: 0 0.4vw;
     }
     50% {
-        translate: 0 -0.2em;
+        translate: 0 -0.4vw;
     }
 }
 
@@ -253,4 +254,61 @@ div.layer > div > span > span {
     animation-timing-function: ease-in-out;
     /*animation-timing-function: steps(24, end);*/
     animation-delay: calc(-0.2s * var(--i));
+}
+
+/* Fog */
+
+.the-fog-rises {
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: fog-sway 10s ease-in-out infinite alternate;
+    animation-name: fog-sway;
+}
+
+.the-fog-rises > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation-name: fog-roll;
+    --fog-loop-duration: 120s;
+    animation-duration: var(--fog-loop-duration);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.the-fog-rises > div:nth-child(3n + 1) {
+    animation-delay: calc((var(--fog-loop-duration) / 3) * -2);
+}
+
+.the-fog-rises > div:nth-child(3n + 2) {
+    animation-delay: calc((var(--fog-loop-duration) / -3));
+}
+
+.the-fog-rises > div:nth-child(3n + 3) {
+    animation-delay: 0s;
+}
+
+.the-fog-rises > div > span {
+    position: absolute;
+    opacity: 0.5;
+}
+
+/* Fog Animation */
+@keyframes fog-roll {
+    0% {
+        translate: calc(-32 * var(--pixel-size)) 0;
+    }
+    100% {
+        translate: calc(64 * var(--pixel-size)) 0;
+    }
+}
+
+@keyframes fog-sway {
+    0% {
+        translate: 0 0;
+    }
+    100% {
+        translate: 0 5vw;
+    }
 }

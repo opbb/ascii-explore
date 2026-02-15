@@ -1,0 +1,22 @@
+{
+  "title": "",
+  "stylesheets": ["directoryStyle.v0.css"],
+  "headerScripts": [],
+  "footerScripts": ["/cameraController.js"],
+  "ambientAudio": [],
+  "layers": [
+    {
+      "zIndex": 0,
+      "paralaxIndex": 0,
+      "layerMap": ""
+    }
+  ],
+  "groups": [
+    {
+      "zIndex": 0,
+      "paralaxIndex": 0,
+      "groupMap": "",
+      "groupPlacement": ""
+    }
+  ]
+}
