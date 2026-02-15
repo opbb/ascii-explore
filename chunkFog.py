@@ -1,10 +1,10 @@
 import json
 import math
 
-chunksCount = 3
+chunksCount = 1
 fileContents = ""
-filePath = "example-project/ex-characterLayer-fog-2.json"
-outFilePath = "example-project/ex-characterLayer-fog-2-chunked.html"
+filePath = "example-project/fog-groups/fog-group-1.json"
+outFilePath = "fog-group-1.html"
 with open(filePath, "r") as file:
     fileContents = json.loads(file.read())
 
